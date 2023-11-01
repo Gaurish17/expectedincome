@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expected Income Calculator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Expected Income Calculator</h1>
+        <form method="POST">
+            <label for="age">Enter Your Age: </label>
+            <input type="number" name="age" required><br>
+
+            <label for="income">Enter Your Income: </label>
+            <input type="number" name="income" required><br>
+
+            <label for="investments">Do you have any investments? </label>
+            <select name="investments" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+
+            <div id="investment_fields">
+                <label for="total_invest">Total investments: </label>
+                <input type="number" name="total_invest"><br>
+            </div>
+
+            <label for="govt_serv">Have you worked in government service? </label>
+            <select name="govt_serv" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+
+            <div id="pension_field">
+                <label for="pension">Enter your expected pension: </label>
+                <input type="number" name="pension"><br>
+            </div>
+
+            <input type="submit" value="Calculate">
+        </form>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const investmentsSelect = document.querySelector('select[name="investments"]');
+        const totalInvestField = document.querySelector('input[name="total_invest"]');
+        const investmentFields = document.getElementById('investment_fields');
+        const pensionSelect = document.querySelector('select[name="govt_serv"]');
+        const pensionField = document.getElementById('pension_field');
+
+        investmentsSelect.addEventListener("change", function () {
+            if (investmentsSelect.value === 'yes') {
+                totalInvestField.required = true;
+                investmentFields.style.display = 'block';
+            } else {
+                totalInvestField.required = false;
+                investmentFields.style.display = 'none';
+            }
+        });
+
+        pensionSelect.addEventListener("change", function () {
+            if (pensionSelect.value === 'yes') {
+                pensionField.style.display = 'block';
+            } else {
+                pensionField.style.display = 'none';
+            }
+        });
+
+        // Initial hide/show based on selections
+        if (investmentsSelect.value === 'yes') {
+            totalInvestField.required = true;
+            investmentFields.style.display = 'block';
+        } else {
+            totalInvestField.required = false;
+            investmentFields.style.display = 'none';
+        }
+
+        if (pensionSelect.value === 'yes') {
+            pensionField.style.display = 'block';
+        } else {
+            pensionField.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
